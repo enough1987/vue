@@ -7,4 +7,12 @@ export default defineConfig({
   define: {
     "process.env": {},
   },
+  resolve: {
+    alias: [
+        {
+            find: /^~(.*)$/,
+            replacement: 'node_modules/$1',
+        },
+    ],
+  },
 });
