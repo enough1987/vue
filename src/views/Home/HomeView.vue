@@ -5,6 +5,7 @@
 </template>
 
 <script lang="ts">
+
 import { Options, Vue } from "vue-class-component";
 import Hello from "/src/components/Hello/Hello.vue"; // @ is an alias to /src
 
