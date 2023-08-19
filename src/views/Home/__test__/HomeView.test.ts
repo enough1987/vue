@@ -8,7 +8,5 @@ test("mount component", async () => {
   expect(Component).toBeTruthy();
 
   const wrapper = mount(Component);
-  expect(wrapper.text()).toContain(
-    "netflix"
-  );
+  expect(wrapper.text()).toContain("netflix");
 });

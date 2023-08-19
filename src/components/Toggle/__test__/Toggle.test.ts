@@ -7,7 +7,7 @@ test("mount component", async () => {
   expect(Component).toBeTruthy();
 
   const wrapper = mount(Component, {
-    props: { label: 'test-l', left: 'test-l', right: 'test-r'},
+    props: { label: "test-l", left: "test-l", right: "test-r" },
   });
   expect(wrapper.text()).toContain("test-l");
 });

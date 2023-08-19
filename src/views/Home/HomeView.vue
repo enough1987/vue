@@ -13,7 +13,10 @@ import MovieList from "/src/components/MovieList/MovieList.vue";
 
 export default {
   components: {
-    Header, Search, Filters, MovieList
+    Header,
+    Search,
+    Filters,
+    MovieList,
   },
-}
+};
 </script>

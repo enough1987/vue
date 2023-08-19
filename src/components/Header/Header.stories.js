@@ -1,11 +1,10 @@
-import Header from './Header.vue';
+import Header from "./Header.vue";
 
 export default {
   component: Header,
-  title: 'Header',
-  tags: ['autodocs'],
-  argTypes: {
-  },
+  title: "Header",
+  tags: ["autodocs"],
+  argTypes: {},
   //👇 Our exports that end in "Data" are not stories.
   excludeStories: /.*Data$/,
 };

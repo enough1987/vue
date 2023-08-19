@@ -8,7 +8,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "test": "vitest",
-    "lint": "vue-cli-service lint",
+    "lint": "eslint --ext .ts,.vue --ignore-path .gitignore --fix src",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
@@ -39,7 +39,7 @@
     "@vue/eslint-config-typescript": "^9.1.0",
     "@vue/test-utils": "^2.0.0-0",
     "eslint": "^7.32.0",
-    "eslint-config-prettier": "^8.3.0",
+    "eslint-config-prettier": "^8.10.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-storybook": "^0.6.13",
     "eslint-plugin-vue": "^8.0.3",

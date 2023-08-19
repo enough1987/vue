@@ -9,10 +9,10 @@ export default defineConfig({
   },
   resolve: {
     alias: [
-        {
-            find: /^~(.*)$/,
-            replacement: 'node_modules/$1',
-        },
+      {
+        find: /^~(.*)$/,
+        replacement: "node_modules/$1",
+      },
     ],
   },
 });
