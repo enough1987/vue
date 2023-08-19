@@ -1,18 +1,19 @@
 <template>
-  <div class="home">
-    <Hello msg="Welcome to Your Vue.js + Vite + TypeScript App + Storybook" />
-  </div>
+  <Header></Header>
+  <Search></Search>
+  <Filters></Filters>
+  <MovieList></MovieList>
 </template>
 
 <script lang="ts">
+import Header from "/src/components/Header/Header.vue";
+import Search from "/src/components/Search/Search.vue";
+import Filters from "/src/components/Filters/Filters.vue";
+import MovieList from "/src/components/MovieList/MovieList.vue";
 
-import { Options, Vue } from "vue-class-component";
-import Hello from "/src/components/Hello/Hello.vue"; // @ is an alias to /src
-
-@Options({
+export default {
   components: {
-    Hello,
+    Header, Search, Filters, MovieList
   },
-})
-export default class HomeView extends Vue {}
+}
 </script>

@@ -9,6 +9,6 @@ test("mount component", async () => {
 
   const wrapper = mount(Component);
   expect(wrapper.text()).toContain(
-    "Welcome to Your Vue.js + Vite + TypeScript App + Storybook"
+    "netflix"
   );
 });

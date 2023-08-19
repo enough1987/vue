@@ -1,16 +1,13 @@
 import { test, expect } from "vitest";
 import { mount } from "@vue/test-utils";
 
-//import your component
-import Component from "../Hello.vue";
+import Component from "../Toggle.vue";
 
 test("mount component", async () => {
   expect(Component).toBeTruthy();
 
   const wrapper = mount(Component, {
-    props: {
-      msg: "test hello",
-    },
+    props: { label: 'test-l', left: 'test-l', right: 'test-r'},
   });
-  expect(wrapper.text()).toContain("test hello");
+  expect(wrapper.text()).toContain("test-l");
 });
