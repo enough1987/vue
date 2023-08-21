@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-import { useMovies } from "../../state/useMovies";
+import { useSearch } from "../../state/useSearch";
 import Toggle, { activeToggle } from "../Toggle/Toggle.vue";
 
 export default {
@@ -21,13 +21,13 @@ export default {
     Toggle,
   },
   setup: () => {
-    const { moviesFiltered } = useMovies();
+    const { moviesFiltered } = useSearch();
 
     return { moviesFiltered };
   },
   methods: {
     onToggle: (value: activeToggle) => {
-      const { changeSortBy } = useMovies();
+      const { changeSortBy } = useSearch();
 
       if (value === "left") {
         changeSortBy("date");

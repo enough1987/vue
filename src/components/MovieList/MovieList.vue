@@ -13,7 +13,7 @@
 
 <script lang="ts">
 import { onMounted } from "vue";
-import { useMovies } from "../../state/useMovies";
+import { useSearch } from "../../state/useSearch";
 import MovieItem from "../MovieItem/MovieItem.vue";
 
 export default {
@@ -22,7 +22,7 @@ export default {
     MovieItem,
   },
   setup() {
-    const { moviesFiltered, fetchMovies } = useMovies();
+    const { moviesFiltered, fetchMovies } = useSearch();
 
     onMounted(() => {
       fetchMovies();

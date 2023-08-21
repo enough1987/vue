@@ -16,7 +16,7 @@
 
 <script lang="ts">
 import Toggle, { activeToggle } from "../Toggle/Toggle.vue";
-import { useMovies } from "../../state/useMovies";
+import { useSearch } from "../../state/useSearch";
 import { ref } from "vue";
 
 export default {
@@ -26,7 +26,7 @@ export default {
   },
   methods: {
     onToggle: (value: activeToggle) => {
-      const { changeSearchBy } = useMovies();
+      const { changeSearchBy } = useSearch();
 
       if (value === "left") {
         changeSearchBy("name");
@@ -35,7 +35,7 @@ export default {
       }
     },
     onSearch: (value: string) => {
-      const { changeSearch } = useMovies();
+      const { changeSearch } = useSearch();
 
       console.info(value);
       changeSearch(value);

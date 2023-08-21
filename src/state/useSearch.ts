@@ -16,7 +16,7 @@ const search = ref("");
 const searchBy = ref<ISearchBy>("name");
 const sortBy = ref<ISortBy>("date");
 
-export function useMovies() {
+export function useSearch() {
   function filterMovies() {
     return movies.value
       .filter((movie) => {
