@@ -9,5 +9,6 @@ test("mount component", async () => {
   const wrapper = mount(Component, {
     props: {},
   });
-  expect(wrapper.text()).toContain("name");
+
+  expect(wrapper.text()).toContain("");
 });

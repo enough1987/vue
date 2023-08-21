@@ -1,18 +1,40 @@
 <template>
   <div class="filters">
-    <div class="info-found">7 movies found</div>
+    <div class="info-found">{{ moviesFiltered.length }} movies found</div>
 
-    <Toggle label="SORT BY" left="RELEASE DATE" right="RATING"></Toggle>
+    <Toggle
+      label="SORT BY"
+      left="RELEASE DATE"
+      right="RATING"
+      @change-active="onToggle"
+    ></Toggle>
   </div>
 </template>
 
 <script lang="ts">
-import Toggle from "../Toggle/Toggle.vue";
+import { useMovies } from "../../state/useMovies";
+import Toggle, { activeToggle } from "../Toggle/Toggle.vue";
 
 export default {
   name: "Filters",
   components: {
     Toggle,
+  },
+  setup: () => {
+    const { moviesFiltered } = useMovies();
+
+    return { moviesFiltered };
+  },
+  methods: {
+    onToggle: (value: activeToggle) => {
+      const { changeSortBy } = useMovies();
+
+      if (value === "left") {
+        changeSortBy("date");
+      } else {
+        changeSortBy("rating");
+      }
+    },
   },
 };
 </script>

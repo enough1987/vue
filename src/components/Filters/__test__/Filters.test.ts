@@ -9,5 +9,5 @@ test("mount component", async () => {
   const wrapper = mount(Component, {
     props: {},
   });
-  expect(wrapper.text()).toContain("7 movies found");
+  expect(wrapper.text()).toContain("0 movies found");
 });

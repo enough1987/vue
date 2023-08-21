@@ -1,18 +1,44 @@
 <template>
   <div class="toggle">
     <div class="toggle-label">{{ label }}</div>
-    <div class="toggle-left">{{ left }}</div>
-    <div class="toggle-right">{{ right }}</div>
+    <div
+      class="toggle-left"
+      :class="{ 'toggle-active': active === 'left' }"
+      @click="changeActive('left')"
+    >
+      {{ left }}
+    </div>
+    <div
+      class="toggle-right"
+      :class="{ 'toggle-active': active === 'right' }"
+      @click="changeActive('right')"
+    >
+      {{ right }}
+    </div>
   </div>
 </template>
 
 <script lang="ts">
+export type activeToggle = "left" | "right";
+
 export default {
   name: "Toggle",
   props: {
     label: String,
     left: String,
     right: String,
+  },
+  emits: ["changeActive"],
+  data: function () {
+    return {
+      active: "left",
+    };
+  },
+  methods: {
+    changeActive(value: activeToggle) {
+      this.active = value;
+      this.$emit("changeActive", value);
+    },
   },
 };
 </script>
@@ -30,7 +56,7 @@ export default {
 }
 .toggle-left {
   text-align: center;
-  background-color: rgb(245, 109, 109);
+  background-color: gray;
   padding: 4px;
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
@@ -43,5 +69,8 @@ export default {
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
   cursor: pointer;
+}
+.toggle-active {
+  background-color: rgb(245, 109, 109);
 }
 </style>

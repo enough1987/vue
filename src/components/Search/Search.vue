@@ -2,20 +2,51 @@
   <div class="search-wrapper">
     <h1 class="search-title">FIND YOUR MOVIE</h1>
     <div class="search">
-      <input class="search-input" type="text" />
-      <button class="search-btn">SEARCH</button>
+      <input class="search-input" type="text" v-model="value" />
+      <button class="search-btn" @click="onSearch(value)">SEARCH</button>
     </div>
-    <Toggle label="SEARCH BY" left="TITLE" right="GENDER"></Toggle>
+    <Toggle
+      label="SEARCH BY"
+      left="TITLE"
+      right="GENDER"
+      @change-active="onToggle"
+    ></Toggle>
   </div>
 </template>
 
 <script lang="ts">
-import Toggle from "../Toggle/Toggle.vue";
+import Toggle, { activeToggle } from "../Toggle/Toggle.vue";
+import { useMovies } from "../../state/useMovies";
+import { ref } from "vue";
 
 export default {
   name: "Search",
   components: {
     Toggle,
+  },
+  methods: {
+    onToggle: (value: activeToggle) => {
+      const { changeSearchBy } = useMovies();
+
+      if (value === "left") {
+        changeSearchBy("name");
+      } else {
+        changeSearchBy("gengre");
+      }
+    },
+    onSearch: (value: string) => {
+      const { changeSearch } = useMovies();
+
+      console.info(value);
+      changeSearch(value);
+    },
+  },
+  setup() {
+    const value = ref("");
+
+    return {
+      value,
+    };
   },
 };
 </script>
