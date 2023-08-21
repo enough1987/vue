@@ -3,14 +3,14 @@
     <div class="toggle-label">{{ label }}</div>
     <div
       class="toggle-left"
-      :class="{ 'toggle-active': active === 'left' }"
+      v-active="active === 'left'"
       @click="changeActive('left')"
     >
       {{ left }}
     </div>
     <div
       class="toggle-right"
-      :class="{ 'toggle-active': active === 'right' }"
+      v-active="active === 'right'"
       @click="changeActive('right')"
     >
       {{ right }}
@@ -19,6 +19,8 @@
 </template>
 
 <script lang="ts">
+import { active } from "../../directives/Active/Active";
+
 export type activeToggle = "left" | "right";
 
 export default {
@@ -29,6 +31,7 @@ export default {
     right: String,
   },
   emits: ["changeActive"],
+  directives: { active },
   data: function () {
     return {
       active: "left",
@@ -56,7 +59,6 @@ export default {
 }
 .toggle-left {
   text-align: center;
-  background-color: gray;
   padding: 4px;
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
@@ -64,13 +66,9 @@ export default {
 }
 .toggle-right {
   text-align: center;
-  background-color: gray;
   padding: 4px;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
   cursor: pointer;
-}
-.toggle-active {
-  background-color: rgb(245, 109, 109);
 }
 </style>
