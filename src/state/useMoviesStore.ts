@@ -1,6 +1,7 @@
 import { ref, computed } from "vue";
 import { defineStore } from "pinia";
 import axios from "axios";
+import { API } from "../constants";
 
 export interface IMovie {
   year: string;
@@ -33,10 +34,12 @@ const useMoviesStore = defineStore("movie", () => {
         if (!search.value) return true;
 
         if (searchBy.value === "name") {
-          return movie.title?.toLowerCase().includes(search.value);
+          return movie.title
+            ?.toLowerCase()
+            .includes(search.value.toLowerCase());
         } else {
           return movie.genres.find((item) =>
-            item?.toLowerCase().includes(search.value)
+            item?.toLowerCase().includes(search.value.toLowerCase())
           );
         }
       })
@@ -75,9 +78,7 @@ const useMoviesStore = defineStore("movie", () => {
 
   async function fetchMovies() {
     try {
-      const response = await axios.get(
-        "https://tame-erin-pike-toga.cyclic.app/movies"
-      );
+      const response = await axios.get(API.MOVIES);
 
       movies.value = response.data || [];
     } catch (error) {

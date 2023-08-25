@@ -1,21 +1,37 @@
-import { describe, test, beforeEach, expect } from "vitest";
+import {
+  describe,
+  test,
+  beforeAll,
+  afterAll,
+  beforeEach,
+  expect,
+} from "vitest";
 import { setActivePinia, createPinia } from "pinia";
 import useMoviesStore from "../useMoviesStore";
+import handlers from "../../helpers/mocks/handlers";
+import { setupServer } from "msw/node";
+
+const server = setupServer(...handlers);
 
 describe("useMovieStore", () => {
+  beforeAll(() => {
+    server.listen();
+  });
+
+  afterAll(() => {
+    server.close();
+  });
+
   beforeEach(() => {
-    // creates a fresh pinia and make it active so it's automatically picked
-    // up by any useStore() call without having to pass it to it:
-    // `useStore(pinia)`
     setActivePinia(createPinia());
   });
 
-  test("fetchMovies should fetch movies", () => {
+  test("fetchMovies should fetch movies", async () => {
     const store = useMoviesStore();
     expect(store.moviesFiltered.length).toBe(0);
 
-    store.fetchMovies();
-    expect(store.moviesFiltered.length).toBe(10);
+    await store.fetchMovies();
+    expect(store.moviesFiltered.length).toBe(3);
   });
 
   test("changeSearch should change search filter", () => {
@@ -45,15 +61,15 @@ describe("useMovieStore", () => {
     expect(store.sortBy).toBe("rating");
   });
 
-  test("all filters must be applied", () => {
+  test("all filters must be applied", async () => {
     const store = useMoviesStore();
 
-    store.fetchMovies();
+    await store.fetchMovies();
 
     store.changeSearchBy("gengre");
-    store.changeSearch("fiction");
+    store.changeSearch("Crime");
     store.changeSortBy("rating");
 
-    expect(store.moviesFiltered.length).toBe(4);
+    expect(store.moviesFiltered.length).toBe(2);
   });
 });
