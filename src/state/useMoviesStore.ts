@@ -1,18 +1,6 @@
 import { ref, computed } from "vue";
 import { defineStore } from "pinia";
 
-export const useMovieStore = defineStore("movie", () => {
-  const count = ref(0);
-
-  const doubleCount = computed(() => count.value * 2);
-
-  function increment() {
-    count.value++;
-  }
-
-  return { count, doubleCount, increment };
-});
-
 export interface IMovie {
   url: string;
   name: string;
@@ -60,29 +48,32 @@ const useMoviesStore = defineStore("movie", () => {
   }
 
   async function fetchMovies() {
-    try {
-      // TODO: use api
-      const gengres = ["fiction", "action", "comedy", "drama"];
-      const years = [2023, 2021, 2022, 2020];
-      const ratings = [1, 2, 4, 3];
-      const response = Array.from(Array(10).keys()).map((i) => ({
-        url: "https://lumiere-a.akamaihd.net/v1/images/p_disney_elemental_homeent_v1_2292_0312c1d7.jpeg",
-        name: "name" + i,
-        gengre: gengres[i % 3],
-        year: years[i % 3],
-        rating: ratings[i % 3],
-      }));
-      movies.value = response || [];
-    } catch (error) {
-      console.error(error);
-    }
+    // try {
+    // TODO: use api
+    const gengres = ["fiction", "action", "comedy", "drama"];
+    const years = [2023, 2021, 2022, 2020];
+    const ratings = [1, 2, 4, 3];
+    const response = Array.from(Array(10).keys()).map((i) => ({
+      url: "https://lumiere-a.akamaihd.net/v1/images/p_disney_elemental_homeent_v1_2292_0312c1d7.jpeg",
+      name: "name" + i,
+      gengre: gengres[i % 3],
+      year: years[i % 3],
+      rating: ratings[i % 3],
+    }));
+    movies.value = response || [];
+    // } catch (error) {
+    //  console.error(error);
+    // }
   }
 
   return {
+    search,
+    searchBy,
+    sortBy,
+    moviesFiltered,
     changeSearch,
     changeSearchBy,
     changeSortBy,
-    moviesFiltered,
     fetchMovies,
   };
 });

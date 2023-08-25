@@ -2,6 +2,7 @@
   <div class="toggle">
     <div class="toggle-label">{{ label }}</div>
     <div
+      id="toggle-left"
       class="toggle-left"
       v-active="active === 'left'"
       @click="changeActive('left')"
@@ -9,6 +10,7 @@
       {{ left }}
     </div>
     <div
+      id="toggle-right"
       class="toggle-right"
       v-active="active === 'right'"
       @click="changeActive('right')"

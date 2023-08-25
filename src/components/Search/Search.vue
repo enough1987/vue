@@ -2,8 +2,15 @@
   <div class="search-wrapper">
     <h1 class="search-title">FIND YOUR MOVIE</h1>
     <div class="search">
-      <input class="search-input" type="text" v-model="value" />
-      <button class="search-btn" @click="onSearch(value)">SEARCH</button>
+      <input
+        id="search-input"
+        class="search-input"
+        type="text"
+        v-model="value"
+      />
+      <button id="search-btn" class="search-btn" @click="onSearch(value)">
+        SEARCH
+      </button>
     </div>
     <Toggle
       label="SEARCH BY"

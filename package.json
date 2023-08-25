@@ -8,6 +8,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "test": "vitest",
+    "coverage": "vitest run --coverage",
     "lint": "eslint --ext .ts,.vue --ignore-path .gitignore --fix src",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
@@ -32,6 +33,7 @@
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
     "@vitejs/plugin-vue": "^4.2.3",
+    "@vitest/coverage-istanbul": "^0.34.3",
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-eslint": "~5.0.0",
     "@vue/cli-plugin-router": "~5.0.0",

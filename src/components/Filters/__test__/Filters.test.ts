@@ -20,4 +20,23 @@ describe("Filters", () => {
     });
     expect(wrapper.text()).toContain("0 movies found");
   });
+
+  test("on onToggle should change filter from date to rating", async () => {
+    expect(Component).toBeTruthy();
+
+    const wrapper = mount(Component, {
+      props: {},
+    });
+    await wrapper.find(".toggle-right").trigger("click");
+
+    expect(wrapper.find(".toggle-right").attributes().style).toContain(
+      "background-color: rgb(245, 109, 109)"
+    );
+
+    await wrapper.find(".toggle-left").trigger("click");
+
+    expect(wrapper.find(".toggle-left").attributes().style).toContain(
+      "background-color: rgb(245, 109, 109)"
+    );
+  });
 });
