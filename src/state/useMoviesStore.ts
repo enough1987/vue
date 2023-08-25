@@ -1,4 +1,17 @@
-import { ref } from "vue";
+import { ref, computed } from "vue";
+import { defineStore } from "pinia";
+
+export const useMovieStore = defineStore("movie", () => {
+  const count = ref(0);
+
+  const doubleCount = computed(() => count.value * 2);
+
+  function increment() {
+    count.value++;
+  }
+
+  return { count, doubleCount, increment };
+});
 
 export interface IMovie {
   url: string;
@@ -10,14 +23,13 @@ export interface IMovie {
 export type ISearchBy = "name" | "gengre";
 export type ISortBy = "date" | "rating";
 
-const movies = ref<IMovie[]>([]);
-const moviesFiltered = ref<IMovie[]>([]);
-const search = ref("");
-const searchBy = ref<ISearchBy>("name");
-const sortBy = ref<ISortBy>("date");
+const useMoviesStore = defineStore("movie", () => {
+  const movies = ref<IMovie[]>([]);
+  const search = ref("");
+  const searchBy = ref<ISearchBy>("name");
+  const sortBy = ref<ISortBy>("date");
 
-export function useSearch() {
-  function filterMovies() {
+  const moviesFiltered = computed(() => {
     return movies.value
       .filter((movie) => {
         return (
@@ -33,21 +45,18 @@ export function useSearch() {
           return x > y ? -1 : x > y ? 1 : 0;
         }
       });
-  }
+  });
 
   function changeSearch(value: string) {
     search.value = value;
-    moviesFiltered.value = filterMovies();
   }
 
   function changeSearchBy(value: ISearchBy) {
     searchBy.value = value;
-    moviesFiltered.value = filterMovies();
   }
 
   function changeSortBy(value: ISortBy) {
     sortBy.value = value;
-    moviesFiltered.value = filterMovies();
   }
 
   async function fetchMovies() {
@@ -63,8 +72,7 @@ export function useSearch() {
         year: years[i % 3],
         rating: ratings[i % 3],
       }));
-      movies.value = response || []; //.data;
-      moviesFiltered.value = filterMovies();
+      movies.value = response || [];
     } catch (error) {
       console.error(error);
     }
@@ -77,4 +85,6 @@ export function useSearch() {
     moviesFiltered,
     fetchMovies,
   };
-}
+});
+
+export default useMoviesStore;

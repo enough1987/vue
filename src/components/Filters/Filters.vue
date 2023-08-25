@@ -12,7 +12,8 @@
 </template>
 
 <script lang="ts">
-import { useSearch } from "../../state/useSearch";
+import { mapState } from "pinia";
+import useMoviesStore from "../../state/useMoviesStore";
 import Toggle, { activeToggle } from "../Toggle/Toggle.vue";
 
 export default {
@@ -20,14 +21,10 @@ export default {
   components: {
     Toggle,
   },
-  setup: () => {
-    const { moviesFiltered } = useSearch();
-
-    return { moviesFiltered };
-  },
+  computed: { ...mapState(useMoviesStore, ["moviesFiltered"]) },
   methods: {
     onToggle: (value: activeToggle) => {
-      const { changeSortBy } = useSearch();
+      const { changeSortBy } = useMoviesStore();
 
       if (value === "left") {
         changeSortBy("date");

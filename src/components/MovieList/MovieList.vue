@@ -13,22 +13,22 @@
 
 <script lang="ts">
 import { onMounted } from "vue";
-import { useSearch } from "../../state/useSearch";
+import useMoviesStore from "../../state/useMoviesStore";
 import MovieItem from "../MovieItem/MovieItem.vue";
+import { mapState } from "pinia";
 
 export default {
   name: "MovieList",
   components: {
     MovieItem,
   },
+  computed: { ...mapState(useMoviesStore, ["moviesFiltered"]) },
   setup() {
-    const { moviesFiltered, fetchMovies } = useSearch();
+    const { fetchMovies } = useMoviesStore();
 
     onMounted(() => {
       fetchMovies();
     });
-
-    return { moviesFiltered };
   },
 };
 </script>
