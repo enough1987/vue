@@ -1,12 +1,22 @@
 import { ref, computed } from "vue";
 import { defineStore } from "pinia";
+import axios from "axios";
 
 export interface IMovie {
-  url: string;
-  name: string;
-  gengre: string;
-  year: number;
-  rating: number;
+  year: string;
+  genres: string[];
+  ratings: number[];
+  poster: string;
+  contentRating: string;
+  duration: string;
+  releaseDate: string;
+  averageRating: number;
+  storyline: string;
+  actors: string[];
+  imdbRating: number;
+  posterurl: string;
+  id: number;
+  title: string;
 }
 export type ISearchBy = "name" | "gengre";
 export type ISortBy = "date" | "rating";
@@ -20,17 +30,33 @@ const useMoviesStore = defineStore("movie", () => {
   const moviesFiltered = computed(() => {
     return movies.value
       .filter((movie) => {
-        return (
-          !search.value ||
-          movie[searchBy.value]?.toLowerCase().includes(search.value)
-        );
+        if (!search.value) return true;
+
+        if (searchBy.value === "name") {
+          return movie.title?.toLowerCase().includes(search.value);
+        } else {
+          return movie.genres.find((item) =>
+            item?.toLowerCase().includes(search.value)
+          );
+        }
       })
       .sort((a, b) => {
-        if (sortBy.value === "date") return b.year - a.year;
-        else {
-          const x = a.name.toLowerCase();
-          const y = b.name.toLowerCase();
-          return x > y ? -1 : x > y ? 1 : 0;
+        if (sortBy.value === "date") {
+          const [year1, month1, day1] = a.releaseDate.split("-");
+          const d1 = new Date();
+          d1.setFullYear(+year1);
+          d1.setMonth(+month1);
+          d1.setDate(+day1);
+
+          const [year2, month2, day2] = b.releaseDate.split("-");
+          const d2 = new Date();
+          d2.setFullYear(+year2);
+          d2.setMonth(+month2);
+          d2.setDate(+day2);
+
+          return d1 > d2 ? -1 : 1;
+        } else {
+          return a.imdbRating > b.imdbRating ? -1 : 1;
         }
       });
   });
@@ -48,22 +74,15 @@ const useMoviesStore = defineStore("movie", () => {
   }
 
   async function fetchMovies() {
-    // try {
-    // TODO: use api
-    const gengres = ["fiction", "action", "comedy", "drama"];
-    const years = [2023, 2021, 2022, 2020];
-    const ratings = [1, 2, 4, 3];
-    const response = Array.from(Array(10).keys()).map((i) => ({
-      url: "https://lumiere-a.akamaihd.net/v1/images/p_disney_elemental_homeent_v1_2292_0312c1d7.jpeg",
-      name: "name" + i,
-      gengre: gengres[i % 3],
-      year: years[i % 3],
-      rating: ratings[i % 3],
-    }));
-    movies.value = response || [];
-    // } catch (error) {
-    //  console.error(error);
-    // }
+    try {
+      const response = await axios.get(
+        "https://tame-erin-pike-toga.cyclic.app/movies"
+      );
+
+      movies.value = response.data || [];
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return {

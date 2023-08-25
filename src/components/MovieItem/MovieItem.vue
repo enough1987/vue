@@ -1,6 +1,11 @@
 <template>
   <div class="movie-list-item">
-    <img class="movie-list-item-img" :src="url" alt="movie" />
+    <img
+      class="movie-list-item-img"
+      :src="url"
+      alt="movie"
+      onerror="this.src='https://lumiere-a.akamaihd.net/v1/images/p_disney_elemental_homeent_v1_2292_0312c1d7.jpeg'"
+    />
     <div class="movie-list-info">
       <div class="movie-list-info-top">
         <div class="movie-list-info-name">{{ name }}</div>

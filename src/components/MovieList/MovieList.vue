@@ -2,10 +2,10 @@
   <div class="movie-list">
     <MovieItem
       v-for="movie in moviesFiltered"
-      :key="movie.name"
-      :url="movie.url"
-      :name="movie.name"
-      :gengre="movie.gengre"
+      :key="movie.id"
+      :url="movie.posterurl"
+      :name="movie.title"
+      :gengre="movie.genres?.toString()"
       :year="movie.year"
     ></MovieItem>
   </div>

@@ -51,7 +51,6 @@ export default {
     onSearch: (value: string) => {
       const { changeSearch } = useMoviesStore();
 
-      console.info(value);
       changeSearch(value);
     },
   },
