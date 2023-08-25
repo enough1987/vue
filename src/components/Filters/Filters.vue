@@ -18,10 +18,11 @@ import Toggle, { activeToggle } from "../Toggle/Toggle.vue";
 
 export default {
   name: "Filters",
+  setup: () => ({}),
+  computed: { ...mapState(useMoviesStore, ["moviesFiltered"]) },
   components: {
     Toggle,
   },
-  computed: { ...mapState(useMoviesStore, ["moviesFiltered"]) },
   methods: {
     onToggle: (value: activeToggle) => {
       const { changeSortBy } = useMoviesStore();

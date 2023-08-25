@@ -1,3 +1,4 @@
+import "../../helpers/storybook";
 import Filters from "./Filters.vue";
 
 export default {

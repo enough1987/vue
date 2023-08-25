@@ -16,6 +16,7 @@
 <script lang="ts">
 export default {
   name: "MovieItem",
+  setup: () => ({}),
   props: {
     url: String,
     name: String,

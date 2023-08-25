@@ -1,3 +1,4 @@
+import "../../helpers/storybook";
 import MovieList from "./MovieList.vue";
 
 export default {

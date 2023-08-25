@@ -19,17 +19,17 @@ import { mapState } from "pinia";
 
 export default {
   name: "MovieList",
-  components: {
-    MovieItem,
-  },
-  computed: { ...mapState(useMoviesStore, ["moviesFiltered"]) },
-  setup() {
+  setup: () => {
     const { fetchMovies } = useMoviesStore();
 
     onMounted(() => {
       fetchMovies();
     });
   },
+  components: {
+    MovieItem,
+  },
+  computed: { ...mapState(useMoviesStore, ["moviesFiltered"]) },
 };
 </script>
 

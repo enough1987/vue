@@ -21,6 +21,13 @@ import { ref } from "vue";
 
 export default {
   name: "Search",
+  setup: () => {
+    const value = ref("");
+
+    return {
+      value,
+    };
+  },
   components: {
     Toggle,
   },
@@ -40,13 +47,6 @@ export default {
       console.info(value);
       changeSearch(value);
     },
-  },
-  setup() {
-    const value = ref("");
-
-    return {
-      value,
-    };
   },
 };
 </script>

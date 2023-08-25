@@ -25,6 +25,7 @@ export type activeToggle = "left" | "right";
 
 export default {
   name: "Toggle",
+  setup: () => ({}),
   props: {
     label: String,
     left: String,
