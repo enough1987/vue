@@ -6,6 +6,7 @@
       label="SORT BY"
       left="RELEASE DATE"
       right="RATING"
+      :active="active"
       @change-active="onToggle"
     ></Toggle>
   </div>
@@ -13,25 +14,49 @@
 
 <script lang="ts">
 import { mapState } from "pinia";
-import useMoviesStore from "../../state/useMoviesStore";
+import { watch, onMounted, ref } from "vue";
+import useMoviesStore, { ISortBy } from "../../state/useMoviesStore";
 import Toggle, { activeToggle } from "../Toggle/Toggle.vue";
+import router from "../../router/index";
+import { useRoute } from "vue-router";
 
 export default {
   name: "Filters",
-  setup: () => ({}),
-  computed: { ...mapState(useMoviesStore, ["moviesFiltered"]) },
+  setup: () => {
+    const active = ref("");
+    const { sortBy, changeSortBy } = useMoviesStore();
+    const route = useRoute();
+
+    onMounted(() => {
+      active.value = route.query.sortBy === "date" ? "left" : "right";
+      changeSortBy(route.query.sortBy as ISortBy);
+    });
+
+    watch(
+      () => route.query.sortBy as ISortBy,
+      (sortBy: ISortBy) => {
+        active.value = sortBy === "date" ? "left" : "right";
+        changeSortBy(sortBy);
+      }
+    );
+
+    return { active, sortBy };
+  },
+  computed: {
+    ...mapState(useMoviesStore, ["moviesFiltered"]),
+  },
   components: {
     Toggle,
   },
   methods: {
     onToggle: (value: activeToggle) => {
-      const { changeSortBy } = useMoviesStore();
-
-      if (value === "left") {
-        changeSortBy("date");
-      } else {
-        changeSortBy("rating");
-      }
+      router.push({
+        path: router.currentRoute.value.path,
+        query: {
+          ...router.currentRoute.value.query,
+          sortBy: value === "left" ? "date" : "rating",
+        },
+      });
     },
   },
 };

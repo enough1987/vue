@@ -16,6 +16,7 @@
       label="SEARCH BY"
       left="TITLE"
       right="GENDER"
+      :active="active"
       @change-active="onToggle"
     ></Toggle>
   </div>
@@ -23,16 +24,44 @@
 
 <script lang="ts">
 import Toggle, { activeToggle } from "../Toggle/Toggle.vue";
-import useMoviesStore from "../../state/useMoviesStore";
-import { ref } from "vue";
+import useMoviesStore, { ISearchBy } from "../../state/useMoviesStore";
+import { ref, watch, onMounted } from "vue";
+import { useRoute } from "vue-router";
+import router from "../../router/index";
 
 export default {
   name: "Search",
   setup: () => {
+    const active = ref("");
     const value = ref("");
+    const route = useRoute();
+
+    const { changeSearch, changeSearchBy } = useMoviesStore();
+
+    onMounted(() => {
+      value.value = route.query.search as string;
+      active.value = route.query.searchBy === "gengre" ? "right" : "left";
+      changeSearch(value.value);
+    });
+
+    watch(
+      () => route.query.search as string,
+      (search: string) => {
+        changeSearch(search);
+      }
+    );
+
+    watch(
+      () => route.query.searchBy as ISearchBy,
+      (searchBy: ISearchBy) => {
+        active.value = searchBy === "name" ? "left" : "right";
+        changeSearchBy(searchBy);
+      }
+    );
 
     return {
       value,
+      active,
     };
   },
   components: {
@@ -40,18 +69,22 @@ export default {
   },
   methods: {
     onToggle: (value: activeToggle) => {
-      const { changeSearchBy } = useMoviesStore();
-
-      if (value === "left") {
-        changeSearchBy("name");
-      } else {
-        changeSearchBy("gengre");
-      }
+      router.push({
+        path: router.currentRoute.value.path,
+        query: {
+          ...router.currentRoute.value.query,
+          searchBy: value === "left" ? "name" : "gengre",
+        },
+      });
     },
     onSearch: (value: string) => {
-      const { changeSearch } = useMoviesStore();
-
-      changeSearch(value);
+      router.push({
+        path: router.currentRoute.value.path,
+        query: {
+          ...router.currentRoute.value.query,
+          search: value,
+        },
+      });
     },
   },
 };

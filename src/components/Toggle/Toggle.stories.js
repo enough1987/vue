@@ -14,5 +14,6 @@ export const Default = {
     label: "test-lebel",
     left: "test-left",
     right: "test-right",
+    active: "left",
   },
 };

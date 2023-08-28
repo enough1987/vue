@@ -32,17 +32,12 @@ export default {
     label: String,
     left: String,
     right: String,
+    active: String,
   },
   emits: ["changeActive"],
   directives: { active },
-  data: function () {
-    return {
-      active: "left",
-    };
-  },
   methods: {
     changeActive(value: activeToggle) {
-      this.active = value;
       this.$emit("changeActive", value);
     },
   },

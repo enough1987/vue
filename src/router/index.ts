@@ -1,14 +1,19 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import HomeView from "../views/Home/HomeView.vue";
 
+export const routsNames = {
+  main: "/",
+  about: "/about",
+};
+
 const routes: Array<RouteRecordRaw> = [
   {
-    path: "/",
+    path: routsNames.main,
     name: "main",
     component: HomeView,
   },
   {
-    path: "/about",
+    path: routsNames.about,
     name: "about",
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
@@ -16,6 +21,7 @@ const routes: Array<RouteRecordRaw> = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/About/AboutView.vue"),
   },
+  { path: "/:pathMatch(.*)*", redirect: routsNames.main },
 ];
 
 const router = createRouter({

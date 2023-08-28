@@ -1,14 +1,12 @@
 import { describe, test, beforeEach, expect } from "vitest";
 import { mount } from "@vue/test-utils";
-
 import Component from "../Search.vue";
 import { createPinia, setActivePinia } from "pinia";
+import "../../../helpers/mocks/vueRouter";
+import { mountRouterSetting } from "../../../helpers/mocks/vueRouter";
 
 describe("Search", () => {
   beforeEach(() => {
-    // creates a fresh pinia and make it active so it's automatically picked
-    // up by any useStore() call without having to pass it to it:
-    // `useStore(pinia)`
     setActivePinia(createPinia());
   });
 
@@ -16,6 +14,7 @@ describe("Search", () => {
     expect(Component).toBeTruthy();
 
     const wrapper = mount(Component, {
+      ...mountRouterSetting,
       props: {},
     });
     expect(wrapper.text()).toContain("FIND YOUR MOVIE");
@@ -25,12 +24,13 @@ describe("Search", () => {
     expect(Component).toBeTruthy();
 
     const wrapper = mount(Component, {
+      ...mountRouterSetting,
       props: {},
     });
     await wrapper.find(".toggle-right").trigger("click");
 
     expect(wrapper.find(".toggle-right").attributes().style).toContain(
-      "background-color: rgb(245, 109, 109)"
+      "background-color: gray;"
     );
 
     await wrapper.find(".toggle-left").trigger("click");
@@ -44,6 +44,7 @@ describe("Search", () => {
     expect(Component).toBeTruthy();
 
     const wrapper = mount(Component, {
+      ...mountRouterSetting,
       props: {},
     });
 
